@@ -9,12 +9,14 @@ import { getBookmarks } from '../services/dataService';
 const MainPage = () => {
     const [bookmarks, setBookmarks] = useState([]);
     const [searching, setSearching] = useState(null);
-
+    const [loading, setloading] = useState(false)
     useEffect(() => {
         const fetchBookmarks = async () => {
             try {
+                setloading(true)
                 const list = await getBookmarks();
                 setBookmarks(list.bookmarks);
+                setloading(false);
             } catch (error) {
                 console.error("Error fetching bookmarks:", error);
             }
@@ -25,8 +27,8 @@ const MainPage = () => {
     }, []);
     return (
         <div className=' min-h-full max-w-[840px] flex flex-col pt-[200px] items-center gap-10 m-auto px-2 pb-[50px]'>
-            <Input setBookmarks={setBookmarks} data={bookmarks} setSearching={setSearching} />
-            <BookmarkList data={searching || bookmarks} />
+            <Input setBookmarks={setBookmarks} data={bookmarks} setSearching={setSearching} setLoading={setloading} />
+            <BookmarkList data={searching || bookmarks} setloading={setloading} loading={loading} />
             <div
                 className="fixed bottom-0 left-0 w-full h-32 z-0 pointer-events-none"
                 style={{

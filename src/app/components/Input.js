@@ -3,7 +3,7 @@ import { FaPlus } from 'react-icons/fa'; // Importing Font Awesome icon
 import { addBookmark } from '../services/dataService';
 
 const Input = (props) => {
-    const { setBookmarks, data, setSearching } = props
+    const { setBookmarks, data, setSearching, setLoading } = props
     const [inputValue, setInputValue] = useState(''); // State to hold the input value
     const handleKeyDown = (event) => {
         if (event.key === 'Enter') {
@@ -26,15 +26,20 @@ const Input = (props) => {
     const handleChange = (event) => {
         const value = event.target.value;
         setInputValue(value);
-        filterBookmarks(value);
+
 
         const urlPattern = /^(http:\/\/|https:\/\/)/;
+
         if (urlPattern.test(value)) {
             processInput(value);
             setInputValue('');
         }
+        else {
+            filterBookmarks(value);
+        }
     };
     const processInput = async (value) => {
+        if (value.trim() === '') return;  // Ensure input is not empty
         let type;
         let link = '';
 
@@ -53,9 +58,11 @@ const Input = (props) => {
             createdAt: new Date().toISOString(),
         };
         try {
+            setLoading(true);  // Show loading spinner while adding bookmark
             const data = await addBookmark(newBookmark);
             setBookmarks(data.data.bookmarks)
             setInputValue('');  // Clear the input field
+            setLoading(false);  // Show loading spinner while adding bookmark
         } catch (error) {
             console.error("Error submitting bookmark:", error);
         }
