@@ -5,9 +5,10 @@ import getFaviconUrl from '../utils/getFavicon';
 import getDomainFromUrl from '../utils/getDomainFromUrl';
 
 const Bookmark = (props) => {
+    const [showCopied, setShowCopied] = useState(false);
+
     if (!props.data) return null
     const { title, createdAt, link, type } = props.data
-    const [showCopied, setShowCopied] = useState(false);
 
     const handleClick = () => {
         // Copy the link to the clipboard
