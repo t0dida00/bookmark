@@ -76,7 +76,7 @@ const Bookmark = (props) => {
                         <div className={`pt-[2px] flex flex-row gap-2 absolute w-max transition-opacity duration-300 ease-in-out ${showCopied ? 'opacity-0' : 'opacity-100'}`}>
                             <img src={getFaviconUrl(link)} alt={title} className="w-5 h-5 object-contain" />
                             {title}
-                            <span className='opacity-50 hidden sm:block'>
+                            <span className='opacity-80 hidden text-gray-400 sm:block'>
                                 {getDomainFromUrl(link)}
                             </span>
                         </div>
