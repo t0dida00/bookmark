@@ -16,6 +16,10 @@ export const addBookmark = async (bookmark) => {
         }
 
         const data = await response.json();
+        if (data.data && data.data.bookmarks) {
+            // Sort bookmarks by `createdAt` in descending order
+            data.data.bookmarks.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        }
         return data;
     } catch (error) {
         console.error("Error:", error);
@@ -29,6 +33,10 @@ export const getBookmarks = async () => {
         const response = await fetch('/api/data');
         if (response.ok) {
             const data = await response.json();
+            if (data[0] && data[0].bookmarks) {
+                // Sort bookmarks by `createdAt` in descending order
+                data[0].bookmarks.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+            }
             return data[0]
         } else {
             console.error('Failed to fetch bookmarks');

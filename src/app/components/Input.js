@@ -2,17 +2,32 @@ import React, { useState } from 'react'
 import { FaPlus } from 'react-icons/fa'; // Importing Font Awesome icon
 import { addBookmark } from '../services/dataService';
 
-const Input = () => {
+const Input = (props) => {
+    const { setBookmarks, data, setSearching } = props
     const [inputValue, setInputValue] = useState(''); // State to hold the input value
     const handleKeyDown = (event) => {
         if (event.key === 'Enter') {
             processInput(inputValue);
             setInputValue('');
+            filterBookmarks(null)
         }
+    };
+    const filterBookmarks = (searchTerm) => {
+        if (!searchTerm) {
+            // If search is empty, show the original list
+            setSearching(null);
+            return;
+        }
+        const filteredBookmarks = data.filter((bookmark) =>
+            bookmark.title.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        setSearching(filteredBookmarks)
     };
     const handleChange = (event) => {
         const value = event.target.value;
         setInputValue(value);
+        filterBookmarks(value);
+
         const urlPattern = /^(http:\/\/|https:\/\/)/;
         if (urlPattern.test(value)) {
             processInput(value);
@@ -38,7 +53,8 @@ const Input = () => {
             createdAt: new Date().toISOString(),
         };
         try {
-            await addBookmark(newBookmark);
+            const data = await addBookmark(newBookmark);
+            setBookmarks(data.data.bookmarks)
             setInputValue('');  // Clear the input field
         } catch (error) {
             console.error("Error submitting bookmark:", error);
@@ -46,7 +62,7 @@ const Input = () => {
 
     };
     return (
-        <div className="w-full lg:w-full ">
+        <div className="w-full lg:w-full px-2 ">
             <div className="relative flex items-center">
                 <FaPlus className="absolute left-3 text-gray-400 text-[14px]" />
                 <input
