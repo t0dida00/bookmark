@@ -1,10 +1,14 @@
 import React, { useState } from 'react'
 import { FaPlus } from 'react-icons/fa'; // Importing Font Awesome icon
 import { addBookmark } from '../services/dataService';
+import { useParams } from 'next/navigation';
 
 const Input = (props) => {
     const { setBookmarks, data, setSearching, setLoading } = props
     const [inputValue, setInputValue] = useState(''); // State to hold the input value
+    const params = useParams();
+    const slug = params.slug; // `slug` will be either `abc`, `bcd`, etc., based on the URL
+
     const handleKeyDown = (event) => {
         if (event.key === 'Enter') {
             processInput(inputValue);
@@ -18,6 +22,7 @@ const Input = (props) => {
             setSearching(null);
             return;
         }
+
         const filteredBookmarks = data.filter((bookmark) =>
             bookmark.title.toLowerCase().includes(searchTerm.toLowerCase())
         );
@@ -59,8 +64,9 @@ const Input = (props) => {
         };
         try {
             setLoading(true);  // Show loading spinner while adding bookmark
-            const data = await addBookmark(newBookmark);
-            setBookmarks(data.data.bookmarks)
+            const data = await addBookmark(newBookmark, slug);
+            const bookmarksList = data.bookmarks.filter((bookmark) => bookmark.slug === slug)?.[0].data
+            setBookmarks(bookmarksList);  // Update the bookmarks list
             setInputValue('');  // Clear the input field
             setLoading(false);  // Show loading spinner while adding bookmark
         } catch (error) {

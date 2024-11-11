@@ -1,5 +1,5 @@
 // /app/services/apiService.js
-export const addBookmark = async (bookmark) => {
+export const addBookmark = async (bookmark, slug) => {
     const username = 'trieuthienhkhoa';
     try {
         const response = await fetch('/api/data', {
@@ -7,20 +7,20 @@ export const addBookmark = async (bookmark) => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 username,
-                bookmark
+                bookmark,
+                slug
             }),
         });
-
         if (!response.ok) {
             throw new Error('Failed to update bookmark');
         }
 
         const data = await response.json();
-        if (data.data && data.data.bookmarks) {
-            // Sort bookmarks by `createdAt` in descending order
-            data.data.bookmarks.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-        }
-        return data;
+        // if (data.data && data.data.bookmarks) {
+        //     // Sort bookmarks by `createdAt` in descending order
+        //     data.data.bookmarks.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        // }
+        return data.data;
     } catch (error) {
         console.error("Error:", error);
         throw error;
@@ -33,12 +33,26 @@ export const getBookmarks = async () => {
         const response = await fetch('/api/data');
         if (response.ok) {
             const data = await response.json();
-            if (data[0] && data[0].bookmarks) {
-                // Sort bookmarks by `createdAt` in descending order
-                data[0].bookmarks.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-            }
-            return data[0]
+            return data
         } else {
+            console.error('Failed to fetch bookmarks');
+        }
+
+    } catch (error) {
+        console.error("Error:", error);
+        throw error;
+    }
+};
+
+export const getBookmarksBySlug = async (slug) => {
+    try {
+        const response = await fetch(`/api/data`);
+        if (response.ok) {
+            const data = await response.json();
+
+            return data
+        } else {
+
             console.error('Failed to fetch bookmarks');
         }
 

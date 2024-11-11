@@ -4,7 +4,10 @@ import Loading from './Loading';
 
 const BookmarkList = (props) => {
     const { data, loading, setLoading } = props;
+    if (!data) return null
 
+    // Sort bookmarks by `createdAt` in descending order
+    const sortedData = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
     return (
         <div className='w-full'>
             <div className='flex justify-between flex-row w-full px-2 font-bold'>
@@ -19,12 +22,12 @@ const BookmarkList = (props) => {
 
             </div>
             <div className='pt-2 flex flex-col gap-2 relative' >
-                {data && data && data.length > 0 && data.map((item, index) => <Bookmark key={index} data={item} setLoading={setLoading} />)}
-                {!loading && (!data || data.length === 0) && (
+                {sortedData && sortedData.length > 0 && sortedData.map((item, index) => <Bookmark key={index} data={item} setLoading={setLoading} />)}
+                {/* {!loading && (!data || data.length === 0) && (
                     <div className='text-gray-500 text-center text-[20px] pt-4'>
                         No data yet
                     </div>
-                )}
+                )} */}
                 {loading && <Loading />}
 
             </div>
