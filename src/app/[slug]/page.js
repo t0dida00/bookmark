@@ -49,7 +49,7 @@ const Page = () => {
 
     return (
         <div className=' min-h-screen max-w-[840px] flex flex-col pt-[100px] items-center gap-10 m-auto px-2 pb-[50px]'>
-            <div className='w-full flex flex-col md:flex-row-reverse md:gap-4'>
+            <div className='w-full flex flex-col md:flex-row-reverse md:gap-4 justify-center gap-4'>
 
                 <Input setBookmarks={setBookmarks} data={bookmarks} setSearching={setSearching} setLoading={setLoading} />
                 <BookmarkFolder />

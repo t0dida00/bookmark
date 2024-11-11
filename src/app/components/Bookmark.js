@@ -38,7 +38,7 @@ const Bookmark = (props) => {
                             {title}
                         </div>
                         <div className={` pt-[2px] flex flex-row gap-2 absolute transition-opacity duration-300 ease-in-out ${showCopied ? 'opacity-100' : 'opacity-0'}`}>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" className='w-[20px] h-[20px] lg:group-hover/card:fill-white'><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" /></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" className='w-[20px] h-[20px] group-hover/card:fill-white'><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" /></svg>
                             Copied
                         </div>
                     </div>
@@ -52,7 +52,7 @@ const Bookmark = (props) => {
 
         if (type === "link") {
             return (
-                <div className=' group/card flex justify-between rounded-md  flex-row w-full  h-max transition cursor-pointer relative p-2 lg:hover:bg-[#0B4A3B] lg:hover:text-white overflow-hidden' onClick={() => window.open(link, '_blank')} title={title}>
+                <div className=' group/card flex justify-between rounded-md  flex-row w-full  h-max transition cursor-pointer relative p-2 lg:hover:bg-[#0B4A3B] hover:text-white overflow-hidden' onClick={() => window.open(link, '_blank')} title={title}>
                     <div className='flex gap-4 flex-row items-center relative'>
                         <div className={`pt-[2px] flex flex-row gap-2 absolute w-max transition-opacity duration-300 ease-in-out ${showCopied ? 'opacity-0' : 'opacity-100'}`}>
                             <img src={getFaviconUrl(link)} alt={title} className="w-5 h-5 object-contain" />

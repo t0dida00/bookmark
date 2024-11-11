@@ -21,7 +21,7 @@ const BookmarkFolder = () => {
     };
 
     return (
-        <div className="relative w-40">
+        <div className="relative px-2 w-40">
             <div
                 className="border border-gray-300 rounded-lg p-2 cursor-pointer"
                 onClick={toggleDropdown}
