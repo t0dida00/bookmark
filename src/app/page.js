@@ -1,14 +1,12 @@
-import Image from "next/image";
+'use client'
 import MainPage from "./MainPage/page";
+import { Provider } from 'react-redux';
+import store from './store'; // Import the store from the configured Redux store file
 
 export default function Home() {
   return (
-    <div className="w-full min-h-screen items-center px-4">
-      <main>
-        <MainPage />
-
-      </main>
-
-    </div>
+    <Provider store={store}>
+      <MainPage />
+    </Provider>
   );
 }

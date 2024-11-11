@@ -35,7 +35,6 @@ export async function POST(req, res) {
             { $push: { 'bookmarks.$.data': bookmark } },
             { new: true } // Return the updated document
         );
-        console.log(updatedDocument)
         return new Response(
             JSON.stringify({ message: 'Bookmark updated successfully', data: updatedDocument }),
             { status: 200, headers: { 'Content-Type': 'application/json' } }
