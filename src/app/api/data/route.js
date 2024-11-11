@@ -4,7 +4,6 @@ import bookmarkSchema from '../../models/Bookmark';
 const username = 'trieuthienhkhoa';
 export async function GET(req, res) {
     try {
-        await connectDB(); // Connect to MongoDB
         // Fetch data from the Bookmark model
         let data = await bookmarkSchema.findOne({ "username": username }) // Convert to plain object right from query
 

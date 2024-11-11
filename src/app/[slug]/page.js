@@ -4,6 +4,7 @@ import { useParams } from 'next/navigation';
 import { getBookmarks, getBookmarksBySlug } from '../services/dataService';
 import Input from '../components/Input';
 import BookmarkList from '../components/BookmarkList';
+import BookmarkFolder from '../components/BookmarkFolder';
 
 const Page = () => {
     const params = useParams();
@@ -47,8 +48,12 @@ const Page = () => {
     }
 
     return (
-        <div className=' min-h-full max-w-[840px] flex flex-col pt-[200px] items-center gap-10 m-auto px-2 pb-[50px]'>
-            <Input setBookmarks={setBookmarks} data={bookmarks} setSearching={setSearching} setLoading={setLoading} />
+        <div className=' min-h-screen max-w-[840px] flex flex-col pt-[100px] items-center gap-10 m-auto px-2 pb-[50px]'>
+            <div className='w-full flex flex-col md:flex-row-reverse md:gap-4'>
+
+                <Input setBookmarks={setBookmarks} data={bookmarks} setSearching={setSearching} setLoading={setLoading} />
+                <BookmarkFolder />
+            </div>
             <BookmarkList data={searching || bookmarks} setloading={setLoading} loading={loading} />
             <div
                 className="fixed bottom-0 left-0 w-full h-32 z-0 pointer-events-none"

@@ -27,6 +27,6 @@ async function connectDB() {
         throw new Error('Failed to connect to MongoDB');
     }
 }
-
+await connectDB()
 
 export default connectDB;

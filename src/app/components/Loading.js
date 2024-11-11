@@ -12,9 +12,9 @@ const Loading = () => {
                 <div className={styles.shadow}></div>
                 <div className={styles.shadow}></div>
             </div> */}
-            <div>
-                Loading ....
-            </div>
+
+            Loading ....
+
         </div>
     )
 }
