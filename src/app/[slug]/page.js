@@ -7,6 +7,7 @@ import BookmarkList from '../components/BookmarkList';
 import BookmarkFolder from '../components/BookmarkFolder';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchBookmarks } from '../store/reducers/bookMarksSlice';
+import Loading from '../components/Loading';
 
 const Page = () => {
     const dispatch = useDispatch();
@@ -32,6 +33,11 @@ const Page = () => {
                     The slug is invalid or not found. Please check the URL and try again.
                 </div>
             </div>
+        );
+    }
+    if (bookmarksStatus === 'loading') {
+        return (
+           <Loading/>
         );
     }
      console.log(bookmarksStatus)
