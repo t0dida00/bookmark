@@ -16,6 +16,7 @@ const Page = () => {
     const userData = useSelector((state) => state.bookmarks);
     const bookmarkList = userData?.data?.bookmarks?.filter(bookmark => bookmark.slug === slug)?.[0]?.data; // Filter bookmarks based on slug
     const [searching, setSearching] = useState(null);
+    const [loading, setLoading] = useState(false);
     useEffect(() => {
         if (bookmarksStatus === 'idle') {
             dispatch(fetchBookmarks());
@@ -33,16 +34,17 @@ const Page = () => {
             </div>
         );
     }
+     console.log(bookmarksStatus)
     if (bookmarksStatus== "succeeded")
         return (
             <div className=' min-h-screen max-w-[840px] flex flex-col pt-[100px] items-center gap-10 m-auto px-2 pb-[50px]'>
                 <div className='w-full flex flex-col md:flex-row-reverse md:gap-4 justify-center gap-4'>
 
-                    <Input data={bookmarkList} setSearching={setSearching} />
+                    <Input data={bookmarkList} setSearching={setSearching} setLoading={setLoading} />
                     <BookmarkFolder />
                 </div>
                 
-                <BookmarkList data={searching || bookmarkList}  />
+                <BookmarkList data={searching || bookmarkList}  loading={loading} />
                 <div
                     className="fixed bottom-0 left-0 w-full h-32 z-0 pointer-events-none"
                     style={{

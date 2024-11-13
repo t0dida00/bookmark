@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 const Input = (props) => {
     const dispatch = useDispatch();
 
-    const {  data, setSearching } = props
+    const {  data, setSearching,setLoading } = props
     const [inputValue, setInputValue] = useState(''); // State to hold the input value
     const params = useParams();
     const slug = params.slug; // `slug` will be either `abc`, `bcd`, etc., based on the URL
@@ -67,9 +67,11 @@ const Input = (props) => {
             createdAt: new Date().toISOString(),
         };
         try {
+            setLoading(true);  // Show loading spinner while adding bookmark
             const data = await addBookmark(newBookmark, slug);
             dispatch(updateBookmark(data));
             setInputValue('');  // Clear the input field
+            setLoading(false);  // Show loading spinner while adding bookmark
         } catch (error) {
             console.error("Error submitting bookmark:", error);
         }
@@ -87,8 +89,6 @@ const Input = (props) => {
                     id="name"
                     placeholder="Enter a link, color or hex code"
                     className="w-full pl-8 pr-4 py-2 border border-gray-300 text-[16px] rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent"
-                    // onTouchStart={() => document.activeElement.blur()} // For mobile touch
-
                 />
             </div>
         </div>

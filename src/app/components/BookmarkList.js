@@ -3,11 +3,12 @@ import Bookmark from './Bookmark'
 import Loading from './Loading';
 
 const BookmarkList = (props) => {
-    const { data } = props;
+    const { data,loading } = props;
     if (!data) return null
     // Sort bookmarks by `createdAt` in descending order
     const sortedData = [...data].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
     // const sortedData = data
+    if(loading)
     return (
         <div className='w-full'>
             <div className='flex justify-between flex-row w-full px-2 font-bold'>
@@ -27,6 +28,9 @@ const BookmarkList = (props) => {
             </div>
         </div>
     )
+    else{
+        return(<Loading/>)
+    }
 }
 
 export default BookmarkList

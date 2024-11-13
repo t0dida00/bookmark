@@ -35,7 +35,7 @@ const MainPage = () => {
         )
     if (userData?.status == "loading")
         return (
-            <div className='h-screen w-full flex items-center justify-center'>Loading</div>
+            <div className='h-screen w-full flex items-center justify-center'>Loading...</div>
         )
 }
 
