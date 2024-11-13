@@ -78,7 +78,7 @@ const Input = (props) => {
 
     };
     return (
-        <div className="w-full lg:w-full px-2 ">
+        <div className="w-full lg:w-full ">
             <div className="relative flex items-center">
                 <FaPlus className="absolute left-3 text-gray-400 text-[16px]" />
                 <input
