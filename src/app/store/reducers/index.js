@@ -1,7 +1,7 @@
 // src/slices/index.js
 
 import { combineReducers } from '@reduxjs/toolkit';
-import bookmarksReducer from './bookmarksSlice.js'; // Example slice
+import bookmarksReducer from './bookMarksSlice'; // Example slice
 
 const rootReducer = combineReducers({
     bookmarks: bookmarksReducer,

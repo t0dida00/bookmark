@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { FaPlus } from 'react-icons/fa'; // Importing Font Awesome icon
 import { addBookmark } from '../services/dataService';
 import { useParams } from 'next/navigation';
-import { fetchBookmarks, updateBookmark } from '../store/reducers/bookmarksSlice';
+import { fetchBookmarks, updateBookmark } from '../store/reducers/bookMarksSlice';
 import { useDispatch } from 'react-redux';
 
 const Input = (props) => {

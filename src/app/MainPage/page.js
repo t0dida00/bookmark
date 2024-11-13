@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { getBookmarks } from '../services/dataService';
 import { useRouter } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchBookmarks } from '../store/reducers/bookmarksSlice';
+import { fetchBookmarks } from '../store/reducers/bookMarksSlice';
 import BookmarkFolder_2 from '../components/BookmarkFolder_2';
 const MainPage = () => {
     const dispatch = useDispatch();

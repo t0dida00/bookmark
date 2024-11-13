@@ -6,7 +6,7 @@ import Input from '../components/Input';
 import BookmarkList from '../components/BookmarkList';
 import BookmarkFolder from '../components/BookmarkFolder';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchBookmarks } from '../store/reducers/bookmarksSlice';
+import { fetchBookmarks } from '../store/reducers/bookMarksSlice';
 
 const Page = () => {
     const dispatch = useDispatch();
