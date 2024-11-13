@@ -66,7 +66,7 @@ const Bookmark = (props) => {
 
         if (type === "link") {
             return (
-                <div className=' group/card flex justify-between rounded-md  flex-row w-full  h-max transition cursor-pointer relative p-2 lg:hover:bg-[#0B4A3B] hover:text-white overflow-hidden' onClick={() => window.open(link, '_blank')} title={title}>
+                <div className=' group/card flex justify-between rounded-md  flex-row w-full  h-max transition cursor-pointer relative p-2 hover:bg-[#0B4A3B] hover:text-white overflow-hidden' onClick={() => window.open(link, '_blank')} title={title}>
                     <div className='flex gap-4 flex-row items-center relative'>
                         <div className={`pt-[2px] flex flex-row gap-2 absolute w-max transition-opacity duration-300 ease-in-out ${showCopied ? 'opacity-0' : 'opacity-100'}`}>
                             <img src={getFaviconUrl(link)} alt={title} className="w-5 h-5 object-contain" />
