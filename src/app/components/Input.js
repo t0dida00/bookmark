@@ -51,17 +51,37 @@ const Input = (props) => {
         if (value.trim() === '') return;  // Ensure input is not empty
         let type;
         let link = '';
+        let title = value;
 
         if (value.startsWith('http://') || value.startsWith('https://')) {
             type = 'link';
             link = value;
+            try {
+                const response = await fetch('/api/data/get-title', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ url: value })
+                });
+    
+                const data = await response.json();
+                if (data.title) {
+                    title = data.title;
+                } else {
+                    // Fallback to a default title if none is found
+                    const url = new URL(value);
+                    title = url.hostname.replace('www.', '').split('.')[0];
+                }
+            } catch (error) {
+                console.error("Error fetching site title:", error);
+            }
         } else if (value.startsWith('#')) {
             type = 'color';
         } else {
             type = 'text';
         }
+      
         const newBookmark = {
-            title: value,
+            title,
             type,
             link,
             createdAt: new Date().toISOString(),

@@ -1,5 +1,8 @@
 export default function getDomainFromUrl(url) {
-    const domain = new URL(url).hostname;  // Extract the hostname
-    return domain.startsWith('www.') ? domain.slice(4) : domain;  // Remove 'www.' if it exists
+    const {hostname,pathname} = new URL(url);  // Extract the hostname
+    const domain = hostname.startsWith('www.') ? hostname.slice(4) : hostname;
+
+    // Return the full domain with the path if available
+    return domain + pathname;
 
 }
