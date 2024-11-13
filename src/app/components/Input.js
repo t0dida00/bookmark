@@ -87,7 +87,7 @@ const Input = (props) => {
                     id="name"
                     placeholder="Enter a link, color or hex code"
                     className="w-full pl-8 pr-4 py-2 border border-gray-300 text-[14px] rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent"
-                    onTouchStart={() => document.activeElement.blur()} // For mobile touch
+                    // onTouchStart={() => document.activeElement.blur()} // For mobile touch
 
                 />
             </div>
