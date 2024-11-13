@@ -8,7 +8,7 @@ const BookmarkList = (props) => {
     // Sort bookmarks by `createdAt` in descending order
     const sortedData = [...data].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
     // const sortedData = data
-    if(loading)
+    if(!loading)
     return (
         <div className='w-full'>
             <div className='flex justify-between flex-row w-full px-2 font-bold'>
