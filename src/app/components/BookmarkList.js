@@ -21,8 +21,12 @@ const BookmarkList = (props) => {
             <div className='w-full border-b h-[1px] opacity-80 pt-2'>
             </div>
             <div className='pt-2 flex flex-col gap-2 w-full relative min-h-[500px] ' >
-                {/* {sortedData && sortedData.length > 0 && sortedData.map((item, index) => <Bookmark key={index} data={item}  />)} */}
-                {loading ? <Loading /> :   sortedData && sortedData.length > 0 && sortedData.map((item, index) => <Bookmark key={index} data={item}  />) }
+                {sortedData && sortedData.length > 0 && sortedData.map((item, index) => <Bookmark key={index} data={item}  />)}
+                {loading &&   <div className="p-0 m-0 w-full h-screen flex justify-center absolute top-0 left-0 bg-white bg-opacity-80">
+                 <Loading/>    
+            </div>}
+              
+             
 
             </div>
         </div>

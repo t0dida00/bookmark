@@ -38,7 +38,10 @@ const Page = () => {
     }
     if (bookmarksStatus === 'loading') {
         return (
-           <Loading/>
+            <div class="p-0 m-0 w-full h-screen flex justify-center items-center absolute top-0 left-0">
+                 <Loading/>    
+            </div>
+         
         );
     }
      console.log(bookmarksStatus)

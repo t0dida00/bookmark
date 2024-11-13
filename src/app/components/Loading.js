@@ -3,7 +3,7 @@ import styles from './styles/Loading.module.scss'; // Importing the CSS module
 
 const Loading = () => {
     return (
-        <div className={styles.container}>
+        <div className='mt-10'>
             {/* <div className={styles.wrapper}>
                 <div className={styles.circle}></div>
                 <div className={styles.circle}></div>
