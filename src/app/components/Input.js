@@ -78,7 +78,7 @@ const Input = (props) => {
     return (
         <div className="w-full lg:w-full px-2 ">
             <div className="relative flex items-center">
-                <FaPlus className="absolute left-3 text-gray-400 text-[14px]" />
+                <FaPlus className="absolute left-3 text-gray-400 text-[16px]" />
                 <input
                     value={inputValue}
                     onChange={handleChange} // Detect link pattern in real-time
@@ -86,7 +86,7 @@ const Input = (props) => {
                     type="text"
                     id="name"
                     placeholder="Enter a link, color or hex code"
-                    className="w-full pl-8 pr-4 py-2 border border-gray-300 text-[14px] rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+                    className="w-full pl-8 pr-4 py-2 border border-gray-300 text-[16px] rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent"
                     // onTouchStart={() => document.activeElement.blur()} // For mobile touch
 
                 />
