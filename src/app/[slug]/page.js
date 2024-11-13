@@ -8,6 +8,7 @@ import BookmarkFolder from '../components/BookmarkFolder';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchBookmarks } from '../store/reducers/bookMarksSlice';
 import Loading from '../components/Loading';
+import BookmarkFolder_2 from '../components/BookmarkFolder_2';
 
 const Page = () => {
     const dispatch = useDispatch();
@@ -48,6 +49,9 @@ const Page = () => {
 
                     <Input data={bookmarkList} setSearching={setSearching} setLoading={setLoading} />
                     <BookmarkFolder />
+                    <ul className="group/list w-full flex gap-3 flex-wrap md:hidden" >
+                        {userData.data.bookmarks.map((bookmark, index) => (<BookmarkFolder_2 key={index} data={bookmark} />))}
+                    </ul>
                 </div>
                 
                 <BookmarkList data={searching || bookmarkList}  loading={loading} />
