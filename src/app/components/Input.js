@@ -67,11 +67,9 @@ const Input = (props) => {
             createdAt: new Date().toISOString(),
         };
         try {
-            setLoading(true);  // Show loading spinner while adding bookmark
             const data = await addBookmark(newBookmark, slug);
             dispatch(updateBookmark(data));
             setInputValue('');  // Clear the input field
-            setLoading(false);  // Show loading spinner while adding bookmark
         } catch (error) {
             console.error("Error submitting bookmark:", error);
         }
