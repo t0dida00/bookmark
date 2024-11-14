@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { FaPlus } from 'react-icons/fa'; // Importing Font Awesome icon
 import { addBookmark } from '../services/dataService';
 import { useParams } from 'next/navigation';
@@ -12,12 +12,15 @@ const Input = (props) => {
     const [inputValue, setInputValue] = useState(''); // State to hold the input value
     const params = useParams();
     const slug = params.slug; // `slug` will be either `abc`, `bcd`, etc., based on the URL
+    const inputRef = useRef(null);
 
     const handleKeyDown = (event) => {
         if (event.key === 'Enter') {
             processInput(inputValue);
             setInputValue('');
             filterBookmarks(null)
+            inputRef.current.blur(); // Blurs the input field to hide the keyboard
+
         }
     };
     const filterBookmarks = (searchTerm) => {
@@ -103,6 +106,7 @@ const Input = (props) => {
                 <FaPlus className="absolute left-3 text-gray-400 text-[16px]" />
                 <input
                     value={inputValue}
+                    ref={inputRef}
                     onChange={handleChange} // Detect link pattern in real-time
                     onKeyDown={handleKeyDown} // Capture Enter key
                     type="text"
