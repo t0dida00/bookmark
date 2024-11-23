@@ -18,12 +18,4 @@ const bookmarkSchema = new mongoose.Schema({
     bookmarks: [bookmarkGroupSchema],
 });
 
-// Export the model
 module.exports = mongoose.models.Bookmarks || mongoose.model('Bookmarks', bookmarkSchema);
-// const updatedDocument = await bookmarkSchema.updateOne(
-//     { username: username, 'bookmarks.slug': slug }, // Find the user by username
-//     { $push: { 'bookmarks.$.data': bookmark } }, // Use array filter to target the correct bookmark
-//     {
-//         new: true
-//     }
-// );

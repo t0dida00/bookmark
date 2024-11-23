@@ -2,18 +2,18 @@ import React, { useRef, useState } from 'react'
 import { FaPlus } from 'react-icons/fa'; // Importing Font Awesome icon
 import { addBookmark } from '../services/dataService';
 import { useParams } from 'next/navigation';
-import { fetchBookmarks, updateBookmark } from '../store/reducers/bookMarksSlice';
-import { useDispatch } from 'react-redux';
+import { updateBookmark } from '../store/reducers/bookMarksSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Input = (props) => {
     const dispatch = useDispatch();
 
-    const {  data, setSearching,setLoading } = props
+    const { data, setSearching, setLoading } = props
     const [inputValue, setInputValue] = useState(''); // State to hold the input value
     const params = useParams();
     const slug = params.slug; // `slug` will be either `abc`, `bcd`, etc., based on the URL
     const inputRef = useRef(null);
-
+    const userData = useSelector(state => state.auth)
     const handleKeyDown = (event) => {
         if (event.key === 'Enter') {
             processInput(inputValue);
@@ -65,7 +65,7 @@ const Input = (props) => {
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ url: value })
                 });
-    
+
                 const data = await response.json();
                 if (data.title) {
                     title = data.title;
@@ -82,7 +82,7 @@ const Input = (props) => {
         } else {
             type = 'text';
         }
-      
+
         const newBookmark = {
             title,
             type,
@@ -91,7 +91,7 @@ const Input = (props) => {
         };
         try {
             setLoading(true);  // Show loading spinner while adding bookmark
-            const data = await addBookmark(newBookmark, slug);
+            const data = await addBookmark(userData?.user.email, newBookmark, slug);
             dispatch(updateBookmark(data));
             setInputValue('');  // Clear the input field
             setLoading(false);  // Show loading spinner while adding bookmark

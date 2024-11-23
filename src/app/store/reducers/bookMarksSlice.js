@@ -3,8 +3,8 @@ import { createSlice, createAsyncThunk, current } from '@reduxjs/toolkit';
 import { getBookmarks } from '../../services/dataService';
 
 // Async thunk for fetching bookmarks
-export const fetchBookmarks = createAsyncThunk('bookmarks/fetchBookmarks', async () => {
-    const response = await getBookmarks();
+export const fetchBookmarks = createAsyncThunk('bookmarks/fetchBookmarks', async (username) => {
+    const response = await getBookmarks(username);
     return response;
 });
 
@@ -19,7 +19,7 @@ const bookmarksSlice = createSlice({
             state.push(action.payload); // Adds the new bookmark to the state array
         },
         updateBookmark: (state, action) => {
-           state.data = action.payload; // Updates the bookmarks list with the new data
+            state.data = action.payload; // Updates the bookmarks list with the new data
         }
     },
     extraReducers: (builder) => {

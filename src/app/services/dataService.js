@@ -1,6 +1,11 @@
 // /app/services/apiService.js
-export const addBookmark = async (bookmark, slug) => {
-    const username = 'trieuthienhkhoa';
+import { useSelector } from "react-redux";
+import store from '../store/index';
+import { loadStateFromLocalStorage } from "../utils/localStorage";
+
+export const addBookmark = async (username, bookmark, slug) => {
+    // const username = 'trieuthienhkhoa';
+
     try {
         const response = await fetch('/api/data', {
             method: 'POST',
@@ -16,10 +21,6 @@ export const addBookmark = async (bookmark, slug) => {
         }
 
         const data = await response.json();
-        // if (data.data && data.data.bookmarks) {
-        //     // Sort bookmarks by `createdAt` in descending order
-        //     data.data.bookmarks.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-        // }
         return data.data;
     } catch (error) {
         console.error("Error:", error);
@@ -28,9 +29,9 @@ export const addBookmark = async (bookmark, slug) => {
 };
 
 // /app/services/apiService.js
-export const getBookmarks = async () => {
+export const getBookmarks = async (username) => {
     try {
-        const response = await fetch('/api/data');
+        const response = await fetch(`/api/data/?username=${username}`);
         if (response.ok) {
             const data = await response.json();
             return data
@@ -61,3 +62,4 @@ export const getBookmarksBySlug = async (slug) => {
         throw error;
     }
 };
+
