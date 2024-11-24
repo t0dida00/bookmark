@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 
 // Replace with your MongoDB URI
-const uri = process.env.NEXT_PUBLIC_MONGODB_URI
+const uri = process.env.MONGODB_URI
 // or for MongoDB Atlas use:
 // const uri = 'mongodb+srv://<username>:<password>@cluster0.mongodb.net/yourDatabaseName?retryWrites=true&w=majority';
 
