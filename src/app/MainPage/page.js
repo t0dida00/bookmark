@@ -19,7 +19,7 @@ const MainPage = (props) => {
         if (bookmarksStatus === 'idle') {
             dispatch(fetchBookmarks(user?.user.email));
         }
-    }, [bookmarksStatus, dispatch]);
+    }, [bookmarksStatus, dispatch, user?.user.email]);
 
     if (userData?.status == "succeeded")
         return (

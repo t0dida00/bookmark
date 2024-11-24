@@ -25,9 +25,9 @@ const Page = () => {
     const [loading, setLoading] = useState(false);
     useEffect(() => {
         if (bookmarksStatus === 'idle') {
-            dispatch(fetchBookmarks(user?.user.email));
+            dispatch(fetchBookmarks(user?.user?.email));
         }
-    }, [bookmarksStatus, dispatch]);
+    }, [bookmarksStatus, dispatch, user?.user?.email]);
     if (slug == 'login') {
         return (<LoginPage />)
     }
