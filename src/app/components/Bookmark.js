@@ -67,7 +67,9 @@ const Bookmark = (props) => {
                     <div className='flex gap-4 flex-row items-center relative'>
                         <div className={` pt-[2px] flex flex-row gap-2 absolute w-max transition-opacity duration-300 ease-in-out ${showCopied ? 'opacity-0' : 'opacity-100'}`}>
                             <div className='rounded-2xl w-[20px] h-[20px]' style={{ background: title }} ></div>
-                            {title}
+                            <span>
+                                {title}
+                            </span>
                         </div>
                         <div className={` pt-[2px] flex flex-row gap-2 absolute transition-opacity duration-300 ease-in-out ${showCopied ? 'opacity-100' : 'opacity-0'}`}>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" className='w-[20px] h-[20px] group-hover/card:fill-white'><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" /></svg>
@@ -97,7 +99,7 @@ const Bookmark = (props) => {
                     <div className='flex gap-4 flex-row items-center relative'>
                         <div className={`pt-[2px] flex flex-row gap-2 absolute w-max transition-opacity duration-300 ease-in-out ${showCopied ? 'opacity-0' : 'opacity-100'}`}>
                             <img src={getFaviconUrl(link)} alt={title} className="w-5 h-5 object-contain" />
-                            {title}
+                            {truncateText(title, maxLength)}
                             <span className='opacity-80 hidden text-gray-400 sm:block'>
                                 {getDomainFromUrl(link)}
                             </span>
