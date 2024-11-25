@@ -1,16 +1,17 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useParams } from 'next/navigation';
+import { clearBookmark } from '../store/reducers/bookMarksSlice';
 import Input from '../components/Input';
 import BookmarkList from '../components/BookmarkList';
 import BookmarkFolder from '../components/BookmarkFolder';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchBookmarks } from '../store/reducers/bookMarksSlice';
 import Loading from '../components/Loading';
 import BookmarkFolder_2 from '../components/BookmarkFolder_2';
 import LoginPage from '../pages/LoginPage';
 import withAuth from '../HOC/auth/withAuth';
 import { signOut } from 'next-auth/react';
+import { logout } from '../store/reducers/authSlice';
 
 const Page = () => {
     const dispatch = useDispatch();
@@ -18,16 +19,10 @@ const Page = () => {
     const slug = params.slug; // `slug` will be either `abc`, `bcd`, etc., based on the URL
     const bookmarksStatus = useSelector((state) => state.bookmarks.status);
     const userData = useSelector((state) => state.bookmarks);
-    const user = useSelector((state) => state.auth);
-
     const bookmarkList = userData?.data?.bookmarks?.filter(bookmark => bookmark.slug === slug)?.[0]?.data; // Filter bookmarks based on slug
     const [searching, setSearching] = useState(null);
     const [loading, setLoading] = useState(false);
-    useEffect(() => {
-        if (bookmarksStatus === 'idle') {
-            dispatch(fetchBookmarks(user?.user?.email));
-        }
-    }, [bookmarksStatus, dispatch, user?.user?.email]);
+
     if (slug == 'login') {
         return (<LoginPage />)
     }
@@ -53,7 +48,14 @@ const Page = () => {
         return (
             <div className=' min-h-screen max-w-[840px] flex flex-col pt-[100px] items-center gap-10 m-auto px-2 pb-[50px]'>
                 <div className='absolute top-[50px] left-[50px]'>
-                    <button onClick={() => signOut({ callbackUrl: "/login" })} className="logout-button">
+                    <button onClick={() => {
+                        // Clear localStorage
+                        localStorage.clear();
+                        dispatch(logout());
+                        dispatch(clearBookmark())
+                        signOut({ callbackUrl: "/login" });
+
+                    }} className="logout-button">
                         Logout
                     </button>
                 </div>
@@ -75,7 +77,7 @@ const Page = () => {
                 ></div>
             </div>
         );
-    return null
+    return (null)
 }
 
 export default withAuth(Page, { redirectIfAuthenticated: false });

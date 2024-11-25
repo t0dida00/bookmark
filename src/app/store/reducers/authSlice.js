@@ -1,7 +1,7 @@
-import { loadStateFromLocalStorage, saveStateToLocalStorage } from "@/app/utils/localStorage";
+import { saveStateToLocalStorage } from "@/app/utils/localStorage";
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = loadStateFromLocalStorage() || {
+const initialState = {
     user: null,
     isAuthenticated: false,
 };
@@ -23,4 +23,4 @@ const authSlice = createSlice({
 });
 
 export const { login, logout } = authSlice.actions;
-export default authSlice.reducer;
+export const authReducer = authSlice.reducer;

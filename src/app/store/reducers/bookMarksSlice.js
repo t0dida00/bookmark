@@ -1,5 +1,5 @@
 // src/slices/bookmarksSlice.js
-import { createSlice, createAsyncThunk, current } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { getBookmarks } from '../../services/dataService';
 
 // Async thunk for fetching bookmarks
@@ -20,7 +20,11 @@ const bookmarksSlice = createSlice({
         },
         updateBookmark: (state, action) => {
             state.data = action.payload; // Updates the bookmarks list with the new data
-        }
+        },
+        clearBookmark: (state) => {
+            state.data = {}
+            state.status = 'idle'; // Reset the status when the bookmarks are cleared
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -36,6 +40,6 @@ const bookmarksSlice = createSlice({
             });
     },
 });
-export const { addBookmark, updateBookmark } = bookmarksSlice.actions;
+export const { addBookmark, updateBookmark, clearBookmark } = bookmarksSlice.actions;
 
-export default bookmarksSlice.reducer;
+export const bookmarksReducer = bookmarksSlice.reducer;

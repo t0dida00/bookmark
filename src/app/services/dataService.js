@@ -1,10 +1,7 @@
 // /app/services/apiService.js
-import { useSelector } from "react-redux";
-import store from '../store/index';
-import { loadStateFromLocalStorage } from "../utils/localStorage";
+
 
 export const addBookmark = async (username, bookmark, slug) => {
-    // const username = 'trieuthienhkhoa';
 
     try {
         const response = await fetch('/api/data', {

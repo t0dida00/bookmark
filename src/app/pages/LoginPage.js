@@ -1,16 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import styles from "../styles/LoginPage.module.scss"
-import { useRouter } from 'next/navigation';
 import withAuth from '../HOC/auth/withAuth';
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 
 const LoginPage = (props) => {
     const [isActive, setIsActive] = useState(false);
-    const { session } = props
+    const { data: session, status: sessionStatus } = useSession();
+
     const toggleActive = () => {
         setIsActive(!isActive);
     };
-    if (session) return null;
+
+    if (session) {
+        return (
+            <div className='h-screen w-full flex items-center justify-center'>Loading...</div>
+        )
+    }
     return (
         <div className='h-screen w-full flex justify-center items-center pr-8 pl-8'>
             <div className={`${styles.container} ${isActive ? styles.active : ''}`} id="container">
@@ -31,9 +36,7 @@ const LoginPage = (props) => {
                                         <path fill="#4285F4" d="M48 48L17 24l-4-3 35-10z" />
                                     </g>
                                 </svg>                            </a>
-                            {/* <a href="#" className={styles.icon}><i className="fa-brands fa-facebook-f"></i></a>
-           <a href="#" className={styles.icon}><i className="fa-brands fa-youtube"></i></a>
-           <a href="#" className={styles.icon}><i className="fa-brands fa-x-twitter"></i></a> */}
+
                         </div>
                         <span>or use your email for register</span>
                         <input type="text" placeholder="Full Name" />
