@@ -12,6 +12,7 @@ import LoginPage from '../pages/LoginPage';
 import withAuth from '../HOC/auth/withAuth';
 import { signOut } from 'next-auth/react';
 import { logout } from '../store/reducers/authSlice';
+import { useRouter } from 'next/navigation';
 
 const Page = () => {
     const dispatch = useDispatch();
@@ -22,7 +23,7 @@ const Page = () => {
     const bookmarkList = userData?.data?.bookmarks?.filter(bookmark => bookmark.slug === slug)?.[0]?.data; // Filter bookmarks based on slug
     const [searching, setSearching] = useState(null);
     const [loading, setLoading] = useState(false);
-
+    const router = useRouter()
     if (slug == 'login') {
         return (<LoginPage />)
     }
@@ -53,11 +54,13 @@ const Page = () => {
 
                     </div>
                     <button onClick={() => {
-                        signOut({ callbackUrl: "/login" });
-                        dispatch(logout());
-                        dispatch(clearBookmark());
-                    }} className="logout-button">
-                        Logout
+                        // signOut({ callbackUrl: "/login" });
+                        // dispatch(logout());
+                        // dispatch(clearBookmark());
+                        router.back()
+                    }}
+                        className="logout-button">
+                        Back
                     </button>
                 </div>
                 <div className='w-full flex flex-col md:flex-row-reverse md:gap-4 justify-center gap-4'>
