@@ -8,9 +8,9 @@ export const addBookmark = async (username, bookmark, slug) => {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                username,
-                bookmark,
-                slug
+                username: username,
+                bookmark: bookmark,
+                slug: slug
             }),
         });
         if (!response.ok) {
@@ -60,3 +60,25 @@ export const getBookmarksBySlug = async (slug) => {
     }
 };
 
+export const addBMFolder = async (username, group, slug) => {
+    try {
+        const response = await fetch('/api/data/folder', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                username,
+                group,
+                slug
+            }),
+        });
+        if (!response.ok) {
+            throw new Error('Failed to update bookmark');
+        }
+
+        const data = await response.json();
+        return data.data;
+    } catch (error) {
+        console.error("Error:", error);
+        throw error;
+    }
+};

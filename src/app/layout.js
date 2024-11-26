@@ -22,6 +22,7 @@ const geistMono = localFont({
 // };
 
 export default function RootLayout({ children }) {
+
   return (
     <Provider store={store}>
 

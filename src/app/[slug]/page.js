@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation';
 import { clearBookmark } from '../store/reducers/bookMarksSlice';
 import Input from '../components/Input';
@@ -23,7 +23,23 @@ const Page = () => {
     const bookmarkList = userData?.data?.bookmarks?.filter(bookmark => bookmark.slug === slug)?.[0]?.data; // Filter bookmarks based on slug
     const [searching, setSearching] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [showMore, setShowMore] = useState(false);
+    const bookmarksToDisplay = showMore
+        ? userData?.data?.bookmarks?.slice().reverse()
+        : userData?.data?.bookmarks?.slice().reverse().slice(0, 4);
     const router = useRouter()
+    useEffect(() => {
+        const storedShowMore = localStorage.getItem('showMore');
+        if (storedShowMore === 'true') {
+            setShowMore(true);
+        }
+    }, []);
+    const handleShowMoreClick = () => {
+        const newShowMore = !showMore;
+        setShowMore(newShowMore);
+        // Store the new state in localStorage
+        localStorage.setItem('showMore', newShowMore.toString());
+    };
     if (slug == 'login') {
         return (<LoginPage />)
     }
@@ -57,7 +73,7 @@ const Page = () => {
                         // signOut({ callbackUrl: "/login" });
                         // dispatch(logout());
                         // dispatch(clearBookmark());
-                        router.back()
+                        router.push("/")
                     }}
                         className="logout-button">
                         Back
@@ -68,13 +84,28 @@ const Page = () => {
                     <Input data={bookmarkList} setSearching={setSearching} setLoading={setLoading} />
                     <BookmarkFolder />
                     <ul className="group/list w-full flex gap-3 flex-wrap md:hidden" >
-                        {userData.data.bookmarks.map((bookmark, index) => (<BookmarkFolder_2 key={index} data={bookmark} />))}
+                        {bookmarksToDisplay.map((bookmark, index) => (<BookmarkFolder_2 key={index} data={bookmark} />))}
                     </ul>
+                    {userData.data.bookmarks.length > 4 && !showMore ? (
+                        <button
+                            onClick={handleShowMoreClick}
+                            className="bg-[#0B4A3B] w-[50%] mx-auto text-white px-4 py-2 rounded-lg mt-4 md:hidden"
+                        >
+                            Show More
+                        </button>
+                    ) :
+                        <button
+                            onClick={handleShowMoreClick}
+                            className="bg-[#0B4A3B] w-[50%] mx-auto text-white px-4 py-2 rounded-lg mt-4 md:hidden"
+                        >
+                            Show Less
+                        </button>
+                    }
                 </div>
 
                 <BookmarkList data={searching || bookmarkList} loading={loading} />
                 <div
-                    className="fixed bottom-0 left-0 w-full h-32 z-0 pointer-events-none"
+                    className="fixed bottom-0 left-0 w-full h-32 z-0 pointer-events-none "
                     style={{
                         background: 'linear-gradient(0deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%)',
                     }}
